@@ -3,18 +3,12 @@
 using System.Security.Cryptography;
 using System.Text;
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Diagnostics;
-
 class Program
 {
     static void Main()
     {
-        string[] passwordDictionary = File.ReadAllLines("passwords.txt");
+        //Solo funciona cuando pongo la ruta absoluta y nose porque
+        string[] passwordDictionary = File.ReadAllLines("..\\..\\..\\passwords.txt");
         Console.WriteLine($"Diccionario cargado con {passwordDictionary.Length} contraseñas");
         
         //Elijo ! love you
@@ -22,13 +16,9 @@ class Program
 
         Console.WriteLine($"Contraseña objetivo: ! love you");
         Console.WriteLine($"Hash objetivo: {targetHash}");
-
-        // 3. Simular ataque de fuerza bruta
+        
         Console.WriteLine("\nIniciando ataque de fuerza bruta...");
-        
-        Stopwatch stopwatch = new Stopwatch();
-        stopwatch.Start();
-        
+
         bool found = false;
         int attempts = 0;
 
@@ -40,18 +30,12 @@ class Program
             if (currentHash == targetHash)
             {
                 found = true;
-                stopwatch.Stop();
+            
                 
                 Console.WriteLine($"\n¡Contraseña encontrada!");
                 Console.WriteLine($"Contraseña: {password}");
                 Console.WriteLine($"Intentos realizados: {attempts:N0}");
-                Console.WriteLine($"Tiempo transcurrido: {stopwatch.ElapsedMilliseconds / 1000.0:F2} segundos");
                 break;
-            }
-
-            if (attempts % 10000 == 0)
-            {
-                Console.Write($"\rProbando contraseña #{attempts:N0}...");
             }
         }
 
